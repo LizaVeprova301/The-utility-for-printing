@@ -29,8 +29,8 @@ public class GeneratePdf {
     private Image image;
 
     public GeneratePdf() {
-        srcFolder = "src/main/resources/asserts/images";
-        destPdf = "src/main/resources/asserts/pdf/output.pdf";
+        srcFolder = "src/main/resources/images";
+        destPdf = "src/main/resources/pdf/output.pdf";
         folder = new File(srcFolder);
         imageFiles = folder.listFiles();
     }
