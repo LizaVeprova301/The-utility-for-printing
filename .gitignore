@@ -7,3 +7,6 @@
 /dataSources/
 /dataSources.local.xml
 .idea/
+.jpg
+.pdf
+/target/
