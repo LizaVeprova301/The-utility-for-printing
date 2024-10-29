@@ -91,7 +91,7 @@ public class GeneratePdf {
             }
         }
         document.close();
-        System.out.println("PDF создан: " + destPdf);
+
     }
 
     public String getDestPdf() {
