@@ -1,7 +1,7 @@
+import javax.swing.*;
+
 public class Main {
-
-
-    public static void main(String[] args) throws Exception {
-        System.out.println("PDF создан: " + GenerateEndPdf.generateEndPdf());
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(PathInputApp::new);
     }
 }

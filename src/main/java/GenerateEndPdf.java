@@ -9,11 +9,12 @@ import com.itextpdf.layout.properties.AreaBreakType;
 import java.io.File;
 
 public class GenerateEndPdf {
-    public static GeneratePdf generatePdf = new GeneratePdf();
+    public static GeneratePdf generatePdf;
     private static int count = 1;
     private static final Paragraph spacer = new Paragraph().setMarginTop(56.7f);
 
-    public static String generateEndPdf() throws Exception {
+    public static String generateEndPdf(String srcFolder,String destPdf) throws Exception {
+        generatePdf = new GeneratePdf(srcFolder,destPdf);
         generatePdf.createPdf();
         File[] imageFiles = generatePdf.getImageFiles();
 

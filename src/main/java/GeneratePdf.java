@@ -14,9 +14,7 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
 public class GeneratePdf {
-    private final String srcFolder; // Путь к папке с изображениями
-    private String destPdf; // Путь к создаваемому PDF файлу
-    private final File folder;
+    private final String destPdf; // Путь к создаваемому PDF файлу
     public static final float width = 380; // ширина изображения
     public static final float height = 560; // высота изображения
     public PdfWriter writer;
@@ -28,11 +26,24 @@ public class GeneratePdf {
 
     private Image image;
 
-    public GeneratePdf() {
-        srcFolder = "src/main/resources/images";
-        destPdf = "src/main/resources/pdf/output.pdf";
-        folder = new File(srcFolder);
-        imageFiles = folder.listFiles();
+    public GeneratePdf(String srcFolder, String destPdf) {
+        // Путь к папке с изображениями
+        this.destPdf = destPdf;
+        File folder = new File(srcFolder);
+        // Проверка существования папки
+        if (!folder.exists() || !folder.isDirectory()) {
+            throw new IllegalArgumentException("Папка не существует или это не папка: " + srcFolder);
+        }
+
+        imageFiles = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".png"));
+        if (imageFiles == null || imageFiles.length == 0) {
+            throw new IllegalArgumentException("В папке нет изображений: " + srcFolder);
+        }
+
+
+        //imageFiles = folder.listFiles();
+
+
     }
 
 
@@ -42,8 +53,10 @@ public class GeneratePdf {
         this.image.setRotationAngle(Math.PI / 2);
     }
 
-    public void createPdf() throws MalformedURLException, FileNotFoundException {
+    public void createPdf() throws FileNotFoundException {
+        System.out.println("Я недошел");
         writer = new PdfWriter(destPdf);
+        System.out.println("Я дошел");
         pdf = new PdfDocument(writer);
         document = new Document(pdf);
         document.setMargins(10, 10, 10, 10);
@@ -81,11 +94,7 @@ public class GeneratePdf {
                         default:
                             System.out.println("Что-то пошло не так");
                     }
-                } catch (Exception e) {
-                    if (count <= imageFiles.length) {
-                        continue;
-                    }
-                    break;
+                } catch (Exception ignored) {
                 }
 
             }
